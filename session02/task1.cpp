@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/*================================
+Task 1: Compute average separately
+==================================*/
+
 int main() {
 
 	cout << "Please enter a series of numbers\n";
