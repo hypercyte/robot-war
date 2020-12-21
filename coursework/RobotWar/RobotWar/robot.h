@@ -4,7 +4,7 @@
 //
 //	Created by Mujahid Ahmed, 2020
 //
-//  1 reminder
+//	1 reminder
 
 #ifndef ROBOT_H
 #define ROBOT_H
