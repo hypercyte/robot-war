@@ -1,3 +1,9 @@
 show
 turnright 4444
 move 4444
+within 10
+move 4
+move 1
+turnright 1
+move 1
+show
