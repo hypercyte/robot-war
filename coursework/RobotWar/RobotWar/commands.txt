@@ -1,0 +1,3 @@
+show
+turnright 4444
+move 4444
