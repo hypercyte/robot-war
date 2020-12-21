@@ -16,8 +16,10 @@ class robot {
 	int _xpos;
 	int _ypos;
 	int _distance;
-	int _direction;	// N, E, S, W
-					// 0, 1, 2, 3
+	int _direction;	
+	// directions:
+	// N, E, S, W
+	// 0, 1, 2, 3
 
 public:
 	// robot constructor
