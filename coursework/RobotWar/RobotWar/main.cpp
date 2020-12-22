@@ -34,8 +34,6 @@ void sort_robots(vector<shared_ptr<robot>>& robots, int& sort_by) {
 				case 1:
 					return a->distance() < b->distance();
 					break;
-				default:
-					break;
 			}
 		}
 	);
@@ -65,17 +63,43 @@ void print_robots(vector<shared_ptr<robot>>& robots, int sort_by) {
 	}
 }
 
+auto lookup(const vector<shared_ptr<robot>>& robots, int& robot_id) {
+	auto lookup_robot = find_if(robots.cbegin(), robots.cend(),
+		[robot_id](shared_ptr<robot> r) {return r->id() == robot_id; }); // returns iterator poiting to robot with matching id
+	return *lookup_robot;
+}
+
+/*=============================
+direction change implementation
+===============================*/
+void turn(const vector<shared_ptr<robot>>& robots, int robot_id, int direction) {
+	auto r = lookup(robots, robot_id);
+	switch (direction)
+	{
+	case 0: // turn left
+		r->change_direction(0);
+		cout << r->direction() << '\n';
+		break;
+	case 1: // turn right
+		r->change_direction(1);
+		cout << r->direction() << '\n';
+		break;
+	}
+}
+
 /*==================
 move implemenation
 ===================*/
 void move(vector<shared_ptr<robot>>& robots, int robot_id) {
-	auto lookup_robot = find_if(robots.begin(), robots.end(),
-		[robot_id](shared_ptr<robot> r) {return r->id() == robot_id; }); // returns iterator poiting to robot with matching id
-	auto& r = *lookup_robot; // we will make r a reference to the robot object found
+	auto r = lookup(robots, robot_id);
 	r->increment_distance();
 	r->make_move();
 	cout << r->id() << ' ' << r->distance() << '\n';
 }
+
+/*=====================
+within implemention
+=====================*/
 
 /*===========
 main program
@@ -120,11 +144,11 @@ int main() {
 		}
 		else if (v[0] == "turnleft") {
 			cout << "turnleft -> #" << stoi(v[1]) << '\n';
-			// turn left implementation
+			turn(robots, stoi(v[1]), 0);
 		}
 		else if (v[0] == "turnright") {
 			cout << "turnright -> #" << stoi(v[1]) << '\n';
-			// turn right implementation
+			turn(robots, stoi(v[1]), 1);
 		}
 		else { // else as we can expect no formatting errors, so no if none of the above, must be move.
 			cout << "move -> #" << stoi(v[1]) << '\n';
