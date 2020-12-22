@@ -17,18 +17,52 @@
 
 using namespace std;
 
+/*=================
+sorting functions
+sort_by: [
+	0 = sort by id()
+	1 = sort by team()
+	2 = sort by distance()
+]
+==================*/
+void sort_robots(vector<shared_ptr<robot>>& robots, int sort_by) {
+	sort(robots.begin(), robots.end(),
+		[sort_by](shared_ptr<robot> a, shared_ptr<robot> b) {
+			switch (sort_by) {
+				case 0:
+					return a->id() < b->id();
+					break;
+				case 1:
+					return a->team() < b->team();
+					break;
+				case 2:
+					return a->distance() < b->distance();
+					break;
+			}
+		}
+	);
+}
+
 /*==================
 show implemenation
 ===================*/
-void show(vector<shared_ptr<robot>>& robots, bool& sorted) {
-	if (!sorted) {
-		sort(robots.begin(), robots.end(),
-			[](shared_ptr<robot> a, shared_ptr<robot> b) {return a->id() < b->id(); });
-		sorted = true;
-	}
+void show(vector<shared_ptr<robot>>& robots) {
+	sort_robots(robots, 0);
+	
 	for (auto &r : robots) {
-		cout << r->id() << '\n';
+		cout << r->id() << ' ' << r->team() << ' ' << r->xpos() << ' ' << r->ypos() << '\n';
 	}
+}
+
+/*==================
+move implemenation
+===================*/
+void move(vector<shared_ptr<robot>>& robots, int robot_id) {
+	auto lookup_robot = find_if(robots.begin(), robots.end(),
+		[robot_id](shared_ptr<robot> r) {return r->id() == robot_id; }); // returns iterator poiting to robot with matching id
+	auto& r = *lookup_robot; // we will make r a reference to the robot object found
+	r->increment_distance();
+	cout << r->id() << ' ' << r->distance() << '\n';
 }
 
 /*===========
@@ -38,7 +72,6 @@ int main() {
 	vector<string> start; // empty vector of strings
 	vector<string> commands;
 	vector<shared_ptr<robot>> robots; // empty vector of pointers to robot objects
-	vector<robot> robots_no_pointer;
 	bool is_sorted = false;
 	input_data(start, "start.txt"); // input data from start.txt into the start vector
 	input_data(commands, "commands.txt");
@@ -61,11 +94,7 @@ int main() {
 		auto v = seperate(c); // separate for additional params
 		if (v[0] == "show") {
 			cout << "show" << '\n';
-			// show implementation start
-
-			show(robots, is_sorted);
-
-			// show implemenation end
+			show(robots);
 		}
 		else if (v[0] == "travelled") {
 			cout << "travelled" << '\n';
@@ -87,6 +116,7 @@ int main() {
 		}
 		else { // else as we can expect no formatting errors, so no if none of the above, must be move.
 			cout << "move -> #" << stoi(v[1]) << '\n';
+			move(robots, stoi(v[1]));
 			// move implementation
 		}
 	}

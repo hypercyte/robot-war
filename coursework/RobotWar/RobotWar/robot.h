@@ -30,9 +30,13 @@ public:
 	int team() const { return _team; }
 	int xpos() const { return _xpos; }
 	int ypos() const { return _ypos; }
-	int distance() { return _distance; }
+	int distance() const { return _distance; }
 	int direction() const { return _direction; }
 	// REMINDER TO REMOVE ANY UNUSED //
+
+	void increment_distance() {
+		_distance++;
+	}
 
 };
 
