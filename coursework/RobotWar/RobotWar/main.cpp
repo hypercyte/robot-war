@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -90,7 +91,7 @@ void turn(const vector<shared_ptr<robot>>& robots, int robot_id, int direction) 
 /*==================
 move implemenation
 ===================*/
-void move(vector<shared_ptr<robot>>& robots, int robot_id) {
+void move(const vector<shared_ptr<robot>>& robots, int robot_id) {
 	auto r = lookup(robots, robot_id);
 	r->increment_distance();
 	r->make_move();
@@ -100,6 +101,12 @@ void move(vector<shared_ptr<robot>>& robots, int robot_id) {
 /*=====================
 within implemention
 =====================*/
+void within(const vector<shared_ptr<robot>>& robots, int n) {
+	auto count = count_if(robots.cbegin(), robots.cend(),
+		[&n](shared_ptr<robot> r) { return (abs((r->xpos())) + abs((r->ypos()))) <= n; }
+	);
+	cout << count << '\n';
+}
 
 /*===========
 main program
@@ -108,7 +115,6 @@ int main() {
 	vector<string> start; // empty vector of strings
 	vector<string> commands;
 	vector<shared_ptr<robot>> robots; // empty vector of pointers to robot objects
-	bool is_sorted = false;
 	input_data(start, "start.txt"); // input data from start.txt into the start vector
 	input_data(commands, "commands.txt");
 
@@ -139,7 +145,7 @@ int main() {
 		else if (v[0] == "within") {
 			cout << "within -> " << stoi(v[1]) << "m" << '\n';
 			// within implementation
-			
+			within(robots, stoi(v[1]));
 			// possible alg: find_if(), lambda?
 		}
 		else if (v[0] == "turnleft") {

@@ -1,3 +1,4 @@
+within 10
 move 10
 show
 turnright 10
