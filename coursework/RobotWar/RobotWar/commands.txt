@@ -1,6 +1,8 @@
+move 10
 show
-move 1
-move 1
-move 4444
-move 1
-move 4
+move 12
+show
+move 10
+show
+move 10
+show

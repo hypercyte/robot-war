@@ -34,9 +34,9 @@ public:
 	int direction() const { return _direction; }
 	// REMINDER TO REMOVE ANY UNUSED //
 
-	void increment_distance() {
-		_distance++;
-	}
+	void increment_distance();
+
+	void make_move();
 
 };
 
