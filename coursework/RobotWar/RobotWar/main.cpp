@@ -53,10 +53,10 @@ void print_robots(vector<shared_ptr<robot>>& robots, int sort_by) {
 	for (auto &r : robots) {
 		switch (sort_by)
 		{
-		case 0:
+		case 0: // command: show
 			cout << r->id() << ' ' << r->team() << ' ' << r->xpos() << ' ' << r->ypos() << '\n';
 			break;
-		case 1:
+		case 1: // command: travelled
 			cout << r->id() << ' ' << r->distance() << '\n';
 			break;
 		default:
@@ -73,6 +73,7 @@ void move(vector<shared_ptr<robot>>& robots, int robot_id) {
 		[robot_id](shared_ptr<robot> r) {return r->id() == robot_id; }); // returns iterator poiting to robot with matching id
 	auto& r = *lookup_robot; // we will make r a reference to the robot object found
 	r->increment_distance();
+	r->make_move();
 	cout << r->id() << ' ' << r->distance() << '\n';
 }
 
@@ -131,7 +132,6 @@ int main() {
 			// move implementation
 		}
 	}
-
 
 	cout << "Robot input:" << '\n' << '\n';
 
