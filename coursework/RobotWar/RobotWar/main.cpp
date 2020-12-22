@@ -20,37 +20,48 @@ using namespace std;
 /*=================
 sorting functions
 sort_by: [
-	0 = sort by id()
-	1 = sort by team()
-	2 = sort by distance()
+	0 = sort by id
+	1 = sort by distance travelled
 ]
 ==================*/
-void sort_robots(vector<shared_ptr<robot>>& robots, int sort_by) {
+void sort_robots(vector<shared_ptr<robot>>& robots, int& sort_by) {
 	sort(robots.begin(), robots.end(),
-		[sort_by](shared_ptr<robot> a, shared_ptr<robot> b) {
+		[&sort_by](shared_ptr<robot> a, shared_ptr<robot> b) {
 			switch (sort_by) {
 				case 0:
 					return a->id() < b->id();
 					break;
 				case 1:
-					return a->team() < b->team();
-					break;
-				case 2:
 					return a->distance() < b->distance();
+					break;
+				default:
 					break;
 			}
 		}
 	);
 }
 
-/*==================
-show implemenation
-===================*/
-void show(vector<shared_ptr<robot>>& robots) {
-	sort_robots(robots, 0);
-	
+/*====================================
+printing implemenation // (used for show and travelled commands)
+sort_by: [
+	0 = sort by id
+	1 = sort by distance travelled
+]
+======================================*/
+void print_robots(vector<shared_ptr<robot>>& robots, int sort_by) {
+	sort_robots(robots, sort_by);
 	for (auto &r : robots) {
-		cout << r->id() << ' ' << r->team() << ' ' << r->xpos() << ' ' << r->ypos() << '\n';
+		switch (sort_by)
+		{
+		case 0:
+			cout << r->id() << ' ' << r->team() << ' ' << r->xpos() << ' ' << r->ypos() << '\n';
+			break;
+		case 1:
+			cout << r->id() << ' ' << r->distance() << '\n';
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -94,11 +105,11 @@ int main() {
 		auto v = seperate(c); // separate for additional params
 		if (v[0] == "show") {
 			cout << "show" << '\n';
-			show(robots);
+			print_robots(robots, 0);
 		}
 		else if (v[0] == "travelled") {
 			cout << "travelled" << '\n';
-			// travelled implementation
+			print_robots(robots, 1);
 		}
 		else if (v[0] == "within") {
 			cout << "within -> " << stoi(v[1]) << "m" << '\n';
