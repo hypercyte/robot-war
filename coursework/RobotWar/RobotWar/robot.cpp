@@ -11,6 +11,18 @@ void robot::increment_distance() {
 	_distance++;
 }
 
+void robot::change_direction(int i) {
+	switch (i)
+	{
+	case 0: // turn left
+		_direction = (_direction - 1) % 4;
+		break;
+	case 1: // turn right
+		_direction = (_direction + 1) % 4;
+		break;
+	}
+}
+
 void robot::make_move() {
 	switch (_direction)
 	{

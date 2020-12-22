@@ -36,6 +36,8 @@ public:
 
 	void increment_distance();
 
+	void change_direction(int i); // i: 0 = left, 1 = right
+
 	void make_move();
 
 };

@@ -1,8 +1,20 @@
 move 10
 show
-move 12
-show
+turnright 10
 move 10
 show
+turnright 10
+move 10
+show
+turnright 10
+move 10
+show
+turnright 10
+move 10
+show
+turnright 10
+move 10
+show
+turnright 10
 move 10
 show
