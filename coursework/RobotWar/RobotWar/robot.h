@@ -15,16 +15,16 @@ class robot {
 	int _team;
 	int _xpos;
 	int _ypos;
-	int _distance;
-	int _direction;	
+	int _distance = 0;
+	int _direction = 0;	
 	// directions:
 	// N, E, S, W
 	// 0, 1, 2, 3
 
 public:
 	// robot constructor
-	robot(int id, int t, int x, int y, int dist, int dir) : 
-		_id(id), _team(t), _xpos(x), _ypos(y), _distance(dist), _direction(dir) {}
+	robot(int id, int t, int x, int y) : 
+		_id(id), _team(t), _xpos(x), _ypos(y) {}
 
 	int id() const { return _id; }
 	int team() const { return _team; }
