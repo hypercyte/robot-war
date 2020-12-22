@@ -27,14 +27,18 @@ void input_data(vector<string>& v, const string& dir) {
 /*=====================================
 separate words at every space character
 =======================================*/
+bool find_space(char c) {
+	return isspace(c);
+}
+
 vector<string> seperate(const string& s) {
 	vector<string> v; // empty vector of type int
-	auto space = find(s.cbegin(), s.cend(), ' '); // find the first instance of a space character
+	auto space = find_if(s.cbegin(), s.cend(), find_space); // find the first instance of a space character
 	v.push_back(string(s.cbegin(), space)); // convert first string to int and push it into vector v
 	// continue till the end
 	while (space != s.cend()) {
 		auto start = ++space;
-		space = find(start, s.cend(), ' ');
+		space = find_if(start, s.cend(), find_space);;
 		v.push_back(string(start, space));
 	}
 	return v; // return the vector with separated ints
