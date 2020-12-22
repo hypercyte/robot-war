@@ -29,7 +29,12 @@ int main() {
 	// for every element of vector start
 	for (const auto& s : start) {
 		auto v = seperate(s); // separate words and push into vector v
-		robots.push_back(make_shared<robot>(stoi(v[0]), stoi(v[1]), stoi(v[2]), stoi(v[3]), 0, 0)); // create a robot object for each line
+		robots.push_back(make_shared<robot>(
+			stoi(v[0]),
+			stoi(v[1]),
+			stoi(v[2]),
+			stoi(v[3]))
+		); // create a robot object for each line
 	}
 
 	cout << "Robot input:" << '\n' << '\n';
