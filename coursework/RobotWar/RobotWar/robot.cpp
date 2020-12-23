@@ -15,10 +15,10 @@ void robot::change_direction(int i) {
 	switch (i)
 	{
 	case 0: // turn left
-		_direction = (_direction - 1) % 4;
+		_direction = (--_direction % 4 + 4) % 4;
 		break;
 	case 1: // turn right
-		_direction = (_direction + 1) % 4;
+		_direction = (++_direction % 4 + 4) % 4;
 		break;
 	}
 }
@@ -26,16 +26,16 @@ void robot::change_direction(int i) {
 void robot::make_move() {
 	switch (_direction)
 	{
-	case 0: // North y++
+	case 0: // N y++
 		_ypos++;
 		break;
-	case 1: // East x++
+	case 1: // E x++
 		_xpos++;
 		break;
-	case 2: // South y--
+	case 2: // S y--
 		_ypos--;
 		break;
-	case 3: // West x--
+	case 3: // W x--
 		_xpos--;
 		break;
 	}
@@ -44,20 +44,17 @@ void robot::make_move() {
 void robot::undo_move() {
 	switch (_direction)
 	{
-	case 0: // North y++
+	case 0: // N 
 		_ypos--;
 		break;
-	case 1: // East x++
+	case 1: // E 
 		_xpos--;
 		break;
-	case 2: // South y--
+	case 2 :// S 
 		_ypos++;
 		break;
-	case 3: // West x--
+	case 3: // W 
 		_xpos++;
 		break;
 	}
 }
-
-
-// define member functions

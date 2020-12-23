@@ -4,7 +4,6 @@
 //
 //	Created by Mujahid Ahmed, 2020
 //
-//	1 reminder
 
 #ifndef ROBOT_H
 #define ROBOT_H
@@ -31,15 +30,11 @@ public:
 	int xpos() const { return _xpos; }
 	int ypos() const { return _ypos; }
 	int distance() const { return _distance; }
-	int direction() const { return _direction; }
-	// REMINDER TO REMOVE ANY UNUSED //
 
+	// data method declarations
 	void increment_distance();
-
 	void change_direction(int i); // i: 0 = left, 1 = right
-
 	void make_move();
-
 	void undo_move();
 
 };

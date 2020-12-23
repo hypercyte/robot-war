@@ -1,6 +1,27 @@
 show
-move 44
+travelled
+within 5
+turnright 3
+turnright 3
+move 3
+turnleft 4
+move 4
+turnright 4
+move 4
+move 4
 show
-move 44
-move 66
+within 5
+move 7
+turnright 6
+turnright 6
+move 6
+move 7
+move 6
+move 7
 show
+move 6
+move 7
+move 6
+move 7
+show
+within 10
