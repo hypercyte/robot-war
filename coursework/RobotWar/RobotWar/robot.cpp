@@ -38,7 +38,23 @@ void robot::make_move() {
 	case 3: // West x--
 		_xpos--;
 		break;
-	default:
+	}
+}
+
+void robot::undo_move() {
+	switch (_direction)
+	{
+	case 0: // North y++
+		_ypos--;
+		break;
+	case 1: // East x++
+		_xpos--;
+		break;
+	case 2: // South y--
+		_ypos++;
+		break;
+	case 3: // West x--
+		_xpos++;
 		break;
 	}
 }

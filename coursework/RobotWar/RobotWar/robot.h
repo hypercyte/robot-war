@@ -40,6 +40,8 @@ public:
 
 	void make_move();
 
+	void undo_move();
+
 };
 
 #endif // !ROBOT_H

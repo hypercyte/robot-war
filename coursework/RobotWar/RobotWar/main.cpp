@@ -14,6 +14,7 @@
 using namespace std;
 
 
+
 /*===========
 main program
 =============*/
@@ -40,6 +41,12 @@ int main() {
 
 	for (const auto& c : commands) {
 		auto v = seperate(c); // separate for additional params
+		if (v.size() > 1) {
+			auto validation = find_if(robots.cbegin(), robots.cend(), [&robots, &v](shared_ptr<robot> r) { return r->id() == stoi(v[1]); });
+			if (validation == robots.cend()) {
+				break;
+			}
+		}
 		if (v[0] == "show") {
 			cout << "show" << '\n';
 			print_robots(robots, 0);
