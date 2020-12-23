@@ -23,5 +23,20 @@ move 6
 move 7
 move 6
 move 7
+move 1
+move 1
+move 1
+move 1
+move 1
+move 3
+move 3
+move 3
+move 3
+move 3
+move 3
+move 3
+move 1
+move 1
 show
 within 10
+travelled
