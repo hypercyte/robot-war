@@ -1,21 +1,5 @@
-within 10
-move 10
 show
-turnright 10
-move 10
+move 44
 show
-turnright 10
-move 10
-show
-turnright 10
-move 10
-show
-turnright 10
-move 10
-show
-turnright 10
-move 10
-show
-turnright 10
-move 10
+move 44
 show
