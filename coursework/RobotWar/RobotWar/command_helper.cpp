@@ -97,7 +97,7 @@ void move(vector<shared_ptr<robot>>& robots, int robot_id) {
 
 	if (check_pos != robots.cend()) {
 		cout << '\n' << "MATCH FOUND" << '\n' << '\n';
-		robots.erase(check_pos);
+		robots.erase(check_pos); // removing the shared_ptr also removes object from memory!
 	}
 	cout << r->id() << ' ' << r->distance() << '\n';
 }
