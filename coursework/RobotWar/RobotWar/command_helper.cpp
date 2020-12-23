@@ -1,5 +1,5 @@
 //
-//	commands.cpp
+//	command_helper.cpp
 //	Coursework: Robot War
 //
 //	Created by Mujahid Ahmed, 2020
@@ -73,11 +73,11 @@ void turn(const vector<shared_ptr<robot>> & robots, int robot_id, int direction)
 	{
 	case 0: // turn left
 		r->change_direction(0);
-		cout << r->direction() << '\n';
+		//cout << "robot #" << r->id() << " is now facing " << r->direction() << '\n';
 		break;
 	case 1: // turn right
 		r->change_direction(1);
-		cout << r->direction() << '\n';
+		//cout << "robot #" << r->id() << " is now facing " << r->direction() << '\n';
 		break;
 	}
 }
@@ -86,25 +86,26 @@ void turn(const vector<shared_ptr<robot>> & robots, int robot_id, int direction)
 void move(vector<shared_ptr<robot>>& robots, int robot_id) {
 	auto r = lookup(robots, robot_id);
 
-	r->increment_distance();
 	r->make_move();
 
 	auto check_pos = find_if(robots.begin(), robots.end(),
 		[&r](shared_ptr<robot> r2) {
 			return (r2->id() != r->id()) && (r2->xpos() == r->xpos()) && (r2->ypos() == r->ypos());
 		}
-	);
+	); // finding if there are any matching coordinates. `r2->id() != r->id()` is there so we don't find the object we're searching against
 
-	if (check_pos != robots.cend()) {
-		cout << '\n' << "MATCH FOUND" << '\n' << '\n';
+	if (check_pos != robots.cend()) { // if matching coordinates found:
 		if ((*check_pos)->team() == r->team()) {
 			r->undo_move(); // if on same team, nothing happens so any change is reverted
 		}
 		else {
 			robots.erase(check_pos); // removing the shared_ptr also removes object from memory!
+			r->increment_distance(); 
 		}
 	}
-	cout << r->id() << ' ' << r->distance() << '\n';
+	else {
+		r->increment_distance();
+	}
 }
 
 // within command

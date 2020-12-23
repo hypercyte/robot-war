@@ -13,14 +13,12 @@
 
 using namespace std;
 
-
-
 /*===========
 main program
 =============*/
 int main() {
-	vector<string> start; // empty vector of strings
-	vector<string> commands;
+	vector<string> start; // empty vector of strings for start.txt
+	vector<string> commands; // empty vector of string for commands.txt
 	vector<shared_ptr<robot>> robots; // empty vector of pointers to robot objects
 	input_data(start, "start.txt"); // input data from start.txt into the start vector
 	input_data(commands, "commands.txt");
@@ -36,48 +34,32 @@ int main() {
 		); // create a robot object for each line
 	}
 
-
-	cout << '\n' << "Command input:" << '\n' << '\n';
-
 	for (const auto& c : commands) {
 		auto v = seperate(c); // separate for additional params
-		if (v.size() > 1) {
-			auto validation = find_if(robots.cbegin(), robots.cend(), [&robots, &v](shared_ptr<robot> r) { return r->id() == stoi(v[1]); });
+		if (v.size() > 1 && v[0] != "within") { // validate robot exists, if not we silently ignore and move on
+			auto validation = find_if(robots.cbegin(), robots.cend(), [&v](shared_ptr<robot> r) { return r->id() == stoi(v[1]); });
 			if (validation == robots.cend()) {
-				break;
+				continue;
 			}
 		}
 		if (v[0] == "show") {
-			cout << "show" << '\n';
 			print_robots(robots, 0);
 		}
 		else if (v[0] == "travelled") {
-			cout << "travelled" << '\n';
 			print_robots(robots, 1);
 		}
 		else if (v[0] == "within") {
-			cout << "within -> " << stoi(v[1]) << "m" << '\n';
 			within(robots, stoi(v[1]));
 		}
 		else if (v[0] == "turnleft") {
-			cout << "turnleft -> #" << stoi(v[1]) << '\n';
 			turn(robots, stoi(v[1]), 0);
 		}
 		else if (v[0] == "turnright") {
-			cout << "turnright -> #" << stoi(v[1]) << '\n';
 			turn(robots, stoi(v[1]), 1);
 		}
 		else { // else as we can expect no formatting errors, so no if none of the above, must be move.
-			cout << "move -> #" << stoi(v[1]) << '\n';
 			move(robots, stoi(v[1]));
 		}
-	}
-
-	cout << "Robot input:" << '\n' << '\n';
-
-	for (const auto& r : robots) {
-		cout << "Robot #" << r->id() << " from team " << r->team() << " is currently located at ("
-			<< r->xpos() << ", " << r->ypos() << "), facing " << r->direction() << '.' << '\n';
 	}
 
 	return 0;
